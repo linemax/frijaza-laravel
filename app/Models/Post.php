@@ -18,6 +18,10 @@ class Post extends Model
         'author_id',
         'category_id',
     ];
+
+    protected $cast = [
+        'publish'
+    ];
     public function photo()
     {
         return $this->morphOne(Photo::class, 'photoable');
@@ -27,15 +31,15 @@ class Post extends Model
         return $this->belongsTo(Author::class);
     }
 
-    public function Category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class, 'post_categories');
     }
 
 
     public function getAllowedRelationships()
     {
-        return ['author','author.photo', 'photo', 'category'];
+        return ['author','author.photo', 'photo', 'categories'];
     }
 
     public function scopeWithAllowedRelationships($query, $relationships)

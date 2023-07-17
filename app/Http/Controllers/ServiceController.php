@@ -63,7 +63,7 @@ class ServiceController extends Controller
     public function store(StoreServiceRequest $request)
     {
         Service::create($request->validated());
-        return response(status: 200);
+        return response(status: 201);
     }
 
     /**
@@ -81,7 +81,7 @@ class ServiceController extends Controller
     public function update(UpdateServiceRequest $request, Service $service)
     {
         $service->update($request->validated());
-        return response(status: 200);
+        return response(status: 201);
     }
 
     /**

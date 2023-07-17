@@ -23,11 +23,11 @@ class StorePostRequest extends FormRequest
     {
         return [
             'title'=>['string', 'required'],
+            'publish'=>['boolean', 'nullable'],
             'read_time'=>['string', 'required'],
             'introduction'=>['string', 'required'],
             'body'=>['string', 'required'],
             'author_id'=>['uuid', 'required'],
-            'category_id'=>['uuid', 'required'],
         ];
     }
 }

@@ -17,7 +17,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $size = 5;
+        $size = 10;
         $request->validate([
             'size' => ['integer'],
         ]);
@@ -29,6 +29,12 @@ class PostController extends Controller
             }
         }
         return Post::orderBy('created_at', 'desc')->withAllowedRelationships($request->query('with'))->paginate($size);
+    }
+
+    public function getLatestPost(Post $post, Request $request)
+    {
+
+        return Post::where('id', $post->id)->orderBy('created_at', 'desc')->withAllowedRelationships($request->query('with'))->get()->first();
     }
 
 
@@ -46,7 +52,7 @@ class PostController extends Controller
             $photo->refresh();
             $post->photo()->save($photo);
         }
-        return response(status: 201);
+        return response(status: 204);
     }
 
 
@@ -62,8 +68,12 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        Post::create($request->validated());
-        return response(status: 200);
+        $post = Post::create($request->validated());
+        if ($request->has('categories')){
+
+            $post->categories()->attach($request->categories);
+        }
+        return response(status: 204);
     }
 
     /**
@@ -81,7 +91,7 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         $post->update($request->validated());
-        return response(status: 200);
+        return response(status: 204);
     }
 
     /**

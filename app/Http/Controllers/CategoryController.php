@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $size = 5;
+        $size = 10;
         $request->validate([
             'size' => ['integer'],
         ]);
@@ -33,7 +33,7 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         Category::create($request->validated());
-        return response(status: 200);
+        return response(status: 204);
     }
     /**
      * Display the specified resource.
@@ -50,7 +50,7 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->update($request->validated());
-        return response(status: 200);
+        return response(status: 204);
     }
 
     /**

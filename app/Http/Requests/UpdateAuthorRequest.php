@@ -22,7 +22,10 @@ class UpdateAuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fname'=>'string',
+            'name'=>'string',
+            'email'=>'string',
+            'phone'=>'string',
+            'bio'=>'string',
             'user_id'=>'uuid',
         ];
     }

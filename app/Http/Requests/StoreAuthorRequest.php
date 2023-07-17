@@ -22,7 +22,10 @@ class StoreAuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fname'=>['string', 'required'],
+            'name'=>['string', 'required'],
+            'email'=>['string', 'required'],
+            'phone'=>['string', 'required'],
+            'bio'=>['string', 'required'],
             'user_id'=>['uuid', 'nullable'],
         ];
     }

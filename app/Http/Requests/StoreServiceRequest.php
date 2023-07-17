@@ -22,9 +22,8 @@ class StoreServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>['string', 'required'],
+            'name'=>['string', 'required'],
             'description'=>['string', 'required'],
-            'body'=>['string', 'required'],
         ];
     }
 }

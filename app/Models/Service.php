@@ -11,9 +11,8 @@ class Service extends Model
     use HasFactory, Uuids;
 
     protected $fillable = [
-        'title',
+        'name',
         'description',
-        'body',
     ];
     public function photo()
     {

@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('authors', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->text('bio');
-            $table->foreignUuid('user_id')->nullable()->references('id')->on('users');
+        Schema::create('post_categories', function (Blueprint $table) {
+            $table->foreignUuid('category_id')->nullable()->references('id')->on('categories')->nullOnDelete();
+            $table->foreignUuid('post_id')->nullable()->references('id')->on('posts')->nullOnDelete();
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('authors');
+        Schema::dropIfExists('post_categories');
     }
 };

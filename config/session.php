@@ -157,6 +157,8 @@ return [
 
     'domain' => env('SESSION_DOMAIN'),
 
+    // 'domain' => '.freesoulijaza.com',
+
     /*
     |--------------------------------------------------------------------------
     | HTTPS Only Cookies

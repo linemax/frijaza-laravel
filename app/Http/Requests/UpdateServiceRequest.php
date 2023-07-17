@@ -22,9 +22,8 @@ class UpdateServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['string'],
+            'name' => ['string'],
             'description' => ['string'],
-            'body' => ['string'],
         ];
     }
 }

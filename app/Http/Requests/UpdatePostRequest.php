@@ -27,8 +27,8 @@ class UpdatePostRequest extends FormRequest
             'read_time' => ['string'],
             'introduction' => ['string'],
             'body' => ['string'],
+            'publish' => ['boolean'],
             'author_id' => ['uuid'],
-            'category_id' => ['uuid'],
         ];
     }
 }

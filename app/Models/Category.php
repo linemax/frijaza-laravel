@@ -15,9 +15,9 @@ class Category extends Model
     ];
 
 
-    public function Posts()
+    public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsToMany(Post::class , 'post_categories');
     }
     public function getAllowedRelationships()
     {

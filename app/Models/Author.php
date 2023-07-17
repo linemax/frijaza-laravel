@@ -25,7 +25,10 @@ class Author extends Model implements Searchable
     }
 
     protected $fillable = [
-        'fname',
+        'name',
+        'email',
+        'phone',
+        'bio',
         'user_id',
     ];
 

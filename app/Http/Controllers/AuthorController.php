@@ -19,7 +19,7 @@ class AuthorController extends Controller
      */
     public function index(Request $request)
     {
-        $size = 5;
+        $size = 10;
         $request->validate([
             'size' => ['integer'],
         ]);
@@ -42,7 +42,10 @@ class AuthorController extends Controller
         return ((new Search())
             ->registerModel(Author::class, function (ModelSearchAspect $modelSearchAspect) use ($request) {
                 $modelSearchAspect
-                    ->addSearchableAttribute('fname')
+                    ->addSearchableAttribute('name')
+                    ->addSearchableAttribute('email')
+                    ->addSearchableAttribute('phone')
+                    ->addSearchableAttribute('bio')
                     ->addExactSearchableAttribute('id')
                     ->addExactSearchableAttribute('user_id')
                     ->withAllowedRelationships($request->query('with'));
@@ -64,7 +67,7 @@ class AuthorController extends Controller
             $photo->refresh();
             $author->photo()->save($photo);
         }
-        return response(status:201);
+        return response(status:204);
     }
 
 
@@ -80,7 +83,7 @@ class AuthorController extends Controller
     public function store(StoreAuthorRequest $request)
     {
         Author::create($request->validated());
-        return response(status: 200);
+        return response(status: 204);
     }
 
     /**
@@ -99,7 +102,7 @@ class AuthorController extends Controller
     public function update(UpdateAuthorRequest $request, Author $author)
     {
         $author->update($request->validated());
-        return response(status: 200);
+        return response(status: 204);
     }
 
     /**

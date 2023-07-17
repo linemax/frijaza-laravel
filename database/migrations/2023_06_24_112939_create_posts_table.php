@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('introduction');
             $table->text('body');
             $table->string('read_time');
+            $table->boolean('publish')->default(0);
             $table->foreignUuid('author_id')->nullable()->references('id')->on('authors');
-            $table->foreignUuid('category_id')->nullable()->references('id')->on('categories');
             $table->timestamps();
         });
     }

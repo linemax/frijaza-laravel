@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('', 'store');
             Route::post('{post}', 'update');
             Route::get('{post}', 'show')->withoutMiddleware('auth:sanctum');
+            Route::get('latest/{post}', 'getLatestPost')->withoutMiddleware('auth:sanctum');
             Route::delete('{post}', 'destroy');
             Route::post('{post}/photo', 'photo');
             Route::get('{post}/photo', 'getPhoto')->withoutMiddleware('auth:sanctum');
