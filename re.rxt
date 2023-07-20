@@ -1,7 +1,9 @@
 APP_NAME=Frijaza
 APP_ENV=local
-APP_KEY=base64:jAVqazFEtC7qa6Lnsp+vt4UYw7FgBibdYYHOseCt+1k=
+APP_KEY=base64:cwMYVLJLVBCoFdJATMC1xc4zBhKua7Qawsr8drbwxAw=
 APP_DEBUG=true
+# APP_URL=http://localhost:8000
+#FRONTEND_URL=http://localhost:4200
 APP_URL=https://api.freesoulijaza.com
 FRONTEND_URL=https:freesoulijaza.com
 
@@ -58,12 +60,3 @@ VITE_PUSHER_HOST="${PUSHER_HOST}"
 VITE_PUSHER_PORT="${PUSHER_PORT}"
 VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
 VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
-
-sudo certbot certonly --webroot --webroot-path=/var/www/frijaza/frijaza-laravel -d api.freesoulijaza.com
-
-
-api.freesoulijaza.com Type: unauthorized  freesoulijaza
-
-sudo certbot --nginx -d freesoulijaza.com -d www.freesoulijaza.com
-
-User::factory()->create(['name' => 'Robline Yegon','email' => 'robline@freesoulijaza.com', ])
