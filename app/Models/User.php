@@ -30,9 +30,13 @@ class User extends Authenticatable
 
 
 
+    public function author()
+    {
+        return $this->hasOne(Author::class);
+    }
     public function getAllowedRelationships()
     {
-        return [ 'authors'];
+        return [ 'author', 'author.posts', 'author.photo'];
     }
 
     public function scopeWithAllowedRelationships($query, $relationships)

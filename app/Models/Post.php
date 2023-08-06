@@ -63,4 +63,11 @@ class Post extends Model
         return $query;
     }
 
+    public function broadcastOn(): array
+    {
+        return [
+            $this, $this->photo
+        ];
+    }
+
 }

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ImageUploaded;
 use App\Http\Requests\StorePhotoRequest;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Photo;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -38,11 +40,27 @@ class PostController extends Controller
     }
 
 
-    public function photo(StorePhotoRequest $request, Post $post)
+    public function photo(StorePhotoRequest $request, Post $post, Photo $photo)
     {
+        $deletedFolderPath = public_path('deleted-photos');
+        if (!file_exists($deletedFolderPath)) {
+            mkdir($deletedFolderPath, 0777, true);
+        }
+
         $path = $request->photo->store('photos', 'public');
         if ($post->photo()->exists()) {
-            Storage::delete($post->photo->url);
+            // Move the existing photo to the 'deleted-photos' folder
+            $oldPhotoPath = public_path('storage/' . $post->photo->url);
+
+            $deletionTimestamp = now()->format('Ymd_Hi');
+            $newFilename = 'deleted_' . $deletionTimestamp . '.png';
+
+            // Check if the file exists before moving it
+            if (file_exists($oldPhotoPath)) {
+                // Move the old photo to the 'deleted-photos' folder with the new filename
+                rename($oldPhotoPath, $deletedFolderPath . '/' . $newFilename);
+            }
+            $post->photo->delete();
             $post->photo->url = $path;
             $post->photo->save();
         } else {
@@ -52,8 +70,11 @@ class PostController extends Controller
             $photo->refresh();
             $post->photo()->save($photo);
         }
-        return response(status: 204);
+        return response(status: 200);
     }
+
+
+    // write a laravel code that creates a new photo if none exists and if it exists deletes the photo and creates a new one for that post
 
 
 
@@ -69,7 +90,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $post = Post::create($request->validated());
-        if ($request->has('categories')){
+        if ($request->has('categories')) {
 
             $post->categories()->attach($request->categories);
         }
